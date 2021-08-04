@@ -13,7 +13,7 @@ const databaseURL = process.env.DATABASE_URL;
 
 const sessionConfig = {
     maxAge: 60 * 60 * 24 * 360,
-    secret: 'ABCDEFGH1234567887654321HGFEDCBA', // to be changed to env secret
+    secret: process.env.SESSION_SECRET,
 };
 
 const { withAuth } = createAuth({
