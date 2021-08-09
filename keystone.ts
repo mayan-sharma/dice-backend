@@ -6,6 +6,7 @@ import { User } from './schemas/User';
 import { Product } from './schemas/Product';
 import { ProductImage } from './schemas/ProductImage';
 import { insertSeedData } from './seed-data';
+import { sendEmail } from './lib/mail';
 
 import 'dotenv/config';
 
@@ -22,6 +23,11 @@ const { withAuth } = createAuth({
     secretField: 'password',
     initFirstItem: {
         fields: ['name', 'email', 'password'],
+    },
+    passwordResetLink: {
+        async sendToken(args) {
+            await sendEmail(args.token, args.identity);
+        }
     }
 });
 
