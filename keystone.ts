@@ -8,6 +8,7 @@ import { ProductImage } from './schemas/ProductImage';
 import { CartItem } from './schemas/CartItem';
 import { insertSeedData } from './seed-data';
 import { sendEmail } from './lib/mail';
+import { extendGraphqlSchema } from './mutations';
 
 import 'dotenv/config';
 
@@ -55,6 +56,7 @@ export default withAuth(config({
         ProductImage,
         CartItem
     }),
+    extendGraphqlSchema,
     ui: {
         isAccessAllowed: ({ session }) => !!session?.data,
     },
