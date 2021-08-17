@@ -67,5 +67,17 @@ export const rules = {
         }
 
         return { status: 'AVAILABLE' }
+    },
+    canManageUsers({ session }: ListAccessArgs) {
+
+        if (!isSignedIn({ session })) {
+            return false;
+        }
+
+        if (permissions.canManageUsers({ session })) {
+            return true;
+        }
+
+        return { id: session.itemId };
     }
 }
