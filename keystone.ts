@@ -7,12 +7,14 @@ import { Product } from './schemas/Product';
 import { ProductImage } from './schemas/ProductImage';
 import { CartItem } from './schemas/CartItem';
 import { OrderItem } from './schemas/OrderItem';
+import { Role } from './schemas/Role';
 import { Order } from './schemas/Order';
 import { insertSeedData } from './seed-data';
 import { sendEmail } from './lib/mail';
 import { extendGraphqlSchema } from './mutations';
 
 import 'dotenv/config';
+import { permissionsList } from './schemas/fields';
 
 const databaseURL = process.env.DATABASE_URL;
 
@@ -58,13 +60,14 @@ export default withAuth(config({
         ProductImage,
         CartItem,
         OrderItem,
-        Order
+        Order,
+        Role
     }),
     extendGraphqlSchema,
     ui: {
         isAccessAllowed: ({ session }) => !!session?.data,
     },
     session: withItemData(statelessSessions(sessionConfig), {
-        User: 'id',
+        User: `id name email role { ${permissionsList.join(' ')} }`,
     }),
 }));
