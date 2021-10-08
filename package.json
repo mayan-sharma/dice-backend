@@ -3,6 +3,7 @@
   "version": "2.0.0",
   "private": true,
   "scripts": {
+    "start": "keystone-next",
     "dev": "keystone-next",
     "seed-data": "keystone-next --seed-data"
   },
